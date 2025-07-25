@@ -9,7 +9,7 @@ The game is built using **Kotlin** and **Android SDK**. It uses **MVVM architect
 ## Screenshots
 ![Home Screen](screenshots/screenshot1.png)
 
-[//]: # (![Screenshot 2]&#40;screenshots/screenshot2.png&#41;)
+![GameOver Screen](screenshots/screenshot2.png)
 
 [//]: # (![Screenshot 3]&#40;screenshots/screenshot3.png&#41;)
 
