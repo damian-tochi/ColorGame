@@ -7,9 +7,11 @@ The game is very simple with only one rule, **Tap on the wrong color**.
 The game is built using **Kotlin** and **Android SDK**. It uses **MVVM architecture** and **Jetpack Compose** for the UI.
 
 ## Screenshots
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
-![Screenshot 3](screenshots/screenshot3.png)
+![Home Screen](screenshots/screenshot1.png)
+
+[//]: # (![Screenshot 2]&#40;screenshots/screenshot2.png&#41;)
+
+[//]: # (![Screenshot 3]&#40;screenshots/screenshot3.png&#41;)
 
 ## Features
 
