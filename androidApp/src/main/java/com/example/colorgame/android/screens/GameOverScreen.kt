@@ -2,18 +2,17 @@ package com.example.colorgame.android.screens
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.provider.CalendarContract
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +21,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.colorgame.android.R
 import com.example.colorgame.android.components.GameButton
 import com.example.colorgame.android.util.BackgroundSoundPlayer
@@ -40,6 +44,11 @@ fun GameOverScreen(navController: NavController, score: Int) {
             setVolume(0.5f, 0.5f)
         }
     }
+
+    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("Game Over.json"))
+    val progress by animateLottieCompositionAsState(
+        composition,
+    )
 
     LaunchedEffect(Unit) {
         if (!isMuted) {
@@ -60,11 +69,29 @@ fun GameOverScreen(navController: NavController, score: Int) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Game Over!", color = Color.White, fontSize = 32.sp)
-        Text("Your Score: $score", color = Color.White, fontSize = 24.sp)
-        Text("Highest Score: ${sharedPreferences.getInt("max_score", 0)}", color = Color.White, fontSize = 24.sp)
+        Spacer(modifier = Modifier.weight(1f))
 
-        Spacer(modifier = Modifier.height(16.dp))
+        LottieAnimation(
+            composition = composition,
+            progress = { progress },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text("Your Score: $score", color = Color.White, fontSize = 18.sp)
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            "Highest Score: ${sharedPreferences.getInt("max_score", 0)}",
+            color = Color.White,
+            fontSize = 18.sp
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
 
         GameButton(
             onClick = {
@@ -91,6 +118,8 @@ fun GameOverScreen(navController: NavController, score: Int) {
                 contentColor = Color.White
             ), title = "Main Menu"
         )
+
+        Spacer(modifier = Modifier.weight(1f))
 
     }
 }
