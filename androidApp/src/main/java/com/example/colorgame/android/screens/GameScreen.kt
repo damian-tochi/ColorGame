@@ -1,5 +1,6 @@
 package com.example.colorgame.android.screens
 
+import ProgressIndicator
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.PlaybackParams
@@ -9,10 +10,10 @@ import android.os.Vibrator
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,19 +40,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.colorgame.android.R
 import com.example.colorgame.android.components.BouncyClickBox
 import com.example.colorgame.android.components.HeaderBox
+import com.example.colorgame.android.components.ScoreText
+import com.example.colorgame.android.util.backgroundColorForSpeedLevel
 import com.example.colorgame.android.util.rememberClickSound
 import com.example.colorgame.android.util.rememberFailSound
 import com.example.colorgame.engine.GameEngine
 import kotlinx.coroutines.delay
-import java.lang.Boolean
+
 
 
 @Composable
@@ -113,15 +111,18 @@ fun GameScreen(navController: NavController, gameEngine: GameEngine) {
         modifier = Modifier
             .fillMaxSize()
             .background(animatedColor)
-            .padding(16.dp),
+            .padding(30.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Select a color NOT:",
-            color = Color.White,
-            fontSize = 20.sp
-        )
+
+        Row {
+            ScoreText(score = gameState.value.score)
+            Spacer(Modifier.weight(1f))
+            Text("Level: ${gameState.value.speedLevel}",  color = Color.White, fontSize = 14.sp)
+        }
+
+        Spacer(Modifier.weight(1f))
 
         HeaderBox(
             modifier = Modifier
@@ -131,18 +132,17 @@ fun GameScreen(navController: NavController, gameEngine: GameEngine) {
             targetColor = Color(gameState.value.highlightedColor),
         )
 
-        Text("Timer: ${gameState.value.timeRemaining}", color = Color.White, fontSize = 16.sp)
-        Text("Score: ${gameState.value.score}",  color = Color.White, fontSize = 12.sp)
-        Text("Speed Level: ${gameState.value.speedLevel}",  color = Color.White, fontSize = 12.sp)
+        ProgressIndicator(progress = gameState.value.timeRemaining.toFloat()/15)
+
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(22.dp),
+            horizontalArrangement = Arrangement.spacedBy(22.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
+                .weight(5f)
         ) {
             items(gameState.value.colors) { colorLong ->
 
@@ -158,11 +158,6 @@ fun GameScreen(navController: NavController, gameEngine: GameEngine) {
                                     .clip(RoundedCornerShape(16.dp)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(
-                                    text = colorLong.toString(),
-                                    color = Color.White,
-                                    fontSize = 16.sp
-                                )
                             }
                         },
                         targetColor = Color(colorLong),
@@ -191,15 +186,6 @@ fun GameScreen(navController: NavController, gameEngine: GameEngine) {
 
             }
         }
-    }
-}
 
-fun backgroundColorForSpeedLevel(speedLevel: Int): Color {
-    return when (speedLevel) {
-        1 -> Color(0xFF1c1b2b)
-        2 -> Color.DarkGray
-        3 -> Color.Gray
-        4 -> Color.Red
-        else -> Color.White
     }
 }

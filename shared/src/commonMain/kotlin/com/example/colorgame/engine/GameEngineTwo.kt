@@ -1,7 +1,9 @@
 package com.example.colorgame.engine
 
+import androidx.compose.runtime.remember
 
-class GameEngine {
+
+class GameEngineTwo {
 
     var state: GameState = generateNewRound()
         private set
@@ -58,33 +60,24 @@ class GameEngine {
 
     private fun colorGenerator(): List<Long> {
         val colorPalette = listOf(
-            0xFF000080,
-            0xFF008000,
-            0xFFFDB515,
-            0xFFFF0000,
-            0xFF1E90FF,
-            0xFF32CD32,
-            0xFFFFA500,
-            0xFF8B0000,
-            0xFF00CED1,
-            0xFFDC143C,
-            0xFFFF1493,
-            0xFF4169E1,
-            0xFF00FF00,
-            0xFFFF4500,
-            0xFFFFFF00,
-            0xFF7CFC00,
-            0xFF00BFFF,
-            0xFFDA70D6,
-            0xFF00FF7F,
-            0xFF9932CC,
-            0xFFADFF2F,
-            0xFFFF69B4,
-            0xFFB22222,
-            0xFF40E0D0,
-            0xFFFF6347
+            0xFFE57373,
+            0xFFF06292,
+            0xFFBA68C8,
+            0xFF9575CD,
+            0xFF64B5F6,
+            0xFF4FC3F7,
+            0xFF4DD0E1,
+            0xFF4DB6AC,
+            0xFF81C784,
+            0xFFAED581,
+            0xFFFFD54F,
+            0xFFFFB74D,
+            0xFFA1887F,
+            0xFFE0E0E0,
+            0xFF90A4AE
         )
-        val shuffledColors = colorPalette.distinct().shuffled().take(4)
+
+        val shuffledColors = colorPalette.distinct().shuffled().take(2)
 
         return shuffledColors
 

@@ -1,7 +1,6 @@
 package com.example.colorgame.android.components
 
 
-import android.graphics.drawable.Icon
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Spacer

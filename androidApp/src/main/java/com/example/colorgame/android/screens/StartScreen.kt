@@ -24,6 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +43,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.colorgame.android.R
 import com.example.colorgame.android.components.GameButton
 import com.example.colorgame.android.components.MultiColorText
+import com.example.colorgame.android.components.SelectLevelDialog
 import com.example.colorgame.android.util.BackgroundSoundPlayer
 
 
@@ -63,6 +67,8 @@ fun StartScreen(navController: NavController) {
         iterations = LottieConstants.IterateForever
     )
 
+    var showDialog by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         if (!isMuted) {
             BackgroundSoundPlayer.start(context)
@@ -73,6 +79,18 @@ fun StartScreen(navController: NavController) {
         onDispose {
             BackgroundSoundPlayer.stop()
         }
+    }
+
+    if (showDialog) {
+        SelectLevelDialog(
+            onLevelSelected = { level ->
+                showDialog = false
+                prefs.edit().clear().apply()
+                prefs.edit().putString("selected_level", level).apply()
+                navController.navigate(level)
+            },
+            onDismiss = { showDialog = false }
+        )
     }
 
     Box(
@@ -134,8 +152,7 @@ fun StartScreen(navController: NavController) {
 
             GameButton(
                 onClick = {
-                    prefs.edit().clear().apply()
-                    navController.navigate("game")
+                    showDialog = true
                 }, buttonIcon = Icons.Default.PlayArrow,
                 color = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF008000),

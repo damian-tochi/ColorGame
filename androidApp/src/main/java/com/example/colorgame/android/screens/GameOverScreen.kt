@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.colorgame.android.R
@@ -37,6 +36,9 @@ fun GameOverScreen(navController: NavController, score: Int) {
     val sharedPreferences = remember {
         context.getSharedPreferences("color_game_prefs", Context.MODE_PRIVATE)
     }
+
+    val level = sharedPreferences.getString("selected_level", "")
+
     val isMuted = sharedPreferences.getBoolean("mute_sounds", false)
     val mediaPlayer = remember {
         MediaPlayer.create(context, R.raw.embrace_effect).apply {
@@ -95,7 +97,7 @@ fun GameOverScreen(navController: NavController, score: Int) {
 
         GameButton(
             onClick = {
-                navController.navigate("game") {
+                navController.navigate(level!!) {
                     popUpTo("splash") { inclusive = true }
                 }
             }, buttonIcon = Icons.Default.Refresh,

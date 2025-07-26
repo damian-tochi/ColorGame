@@ -16,6 +16,7 @@ coroutines = "1.7.3"
 navigationCompose = "2.9.1"
 okio = "3.4.0"
 ui = "1.5.10"
+core = "1.16.0"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -37,6 +38,7 @@ moko = { module = "dev.icerock.moko:resources", version.ref = "moko" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

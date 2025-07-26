@@ -34,7 +34,7 @@ fun SplashScreen(onAnimationFinished: () -> Unit) {
             contentDescription = "Logo",
             modifier = Modifier
                 .size(200.dp)
-                .scale(scale.value)
+//                .scale(scale.value)
         )
     }
 }
