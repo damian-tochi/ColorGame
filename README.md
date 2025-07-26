@@ -50,4 +50,4 @@ The game is built using **Kotlin** and **Android SDK**. It uses **MVVM architect
 
 
 ## APK Download/Installation
-- 
+- Download APK: https://drive.google.com/file/d/1L-36qjwjzWemsZHsEftBP5jVY-QDQcoU/view?usp=sharing
